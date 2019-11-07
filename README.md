@@ -11,7 +11,6 @@ Features :
 
 
 A makefile also provides basic automation :
-
-     - `make` to compile. This creates an ftest
-     - `make format` to indent the entire project
+ - `make` to compile. This creates an ftest.native executable
+ - `make format` to indent the entire project
 
