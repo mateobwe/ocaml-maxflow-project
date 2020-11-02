@@ -17,9 +17,10 @@ val empty_graph: 'a graph
  * @raise Graph_error if the id already exists. *)
 val new_node: 'a graph -> id -> 'a graph
 
-(* add_arc gr id1 id2 lbl  : adds an arc from node id1 to node id2 with label lbl
- * If an arc already exists between id1 and id2, its label is replaced by lbl. 
- * @raise Graph_error if id1 or id2 does not exist in the graph. *)
+(* new_arc gr id1 id2 lbl  : adds an arc from node id1 to node id2 with label lbl
+ * Both nodes must already exist in the graph.
+ * If the arc already exists, its label is replaced by lbl. 
+ * @raise Graph_error if node id1 or id2 does not exist in the graph. *)
 val new_arc: 'a graph -> id -> id -> 'a -> 'a graph
 
 

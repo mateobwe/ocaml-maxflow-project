@@ -45,9 +45,14 @@ let read_node id graph line =
     Printf.printf "Cannot read node in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
     failwith "from_file"
 
+(* Ensure that the given node exists in the graph. If not, create it. 
+ * (Necessary because the website we use to create online graphs does not generate correct files when some nodes have been deleted.) *)
+let ensure graph id = if node_exists graph id then graph else new_node graph id
+
 (* Reads a line with an arc. *)
 let read_arc graph line =
-  try Scanf.sscanf line "e %d %d %s" (fun id1 id2 label -> new_arc graph id1 id2 label)
+  try Scanf.sscanf line "e %d %d %s"
+        (fun id1 id2 label -> new_arc (ensure (ensure graph id1) id2) id1 id2 label)
   with e ->
     Printf.printf "Cannot read arc in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
     failwith "from_file"
