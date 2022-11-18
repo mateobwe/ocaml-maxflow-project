@@ -38,7 +38,7 @@ type 'a out_arcs = (id * 'a) list
 val out_arcs: 'a graph -> id -> 'a out_arcs
 
 (* find_arc gr id1 id2  finds an arc between id1 and id2 and returns its label. Returns None if the arc does not exist. 
- * @raise Graph_error if id1 is unknown. *)
+* @raise Graph_error if id1 is unknown. *)
 val find_arc: 'a graph -> id -> id -> 'a option
 
 
@@ -49,7 +49,7 @@ val n_iter: 'a graph -> (id -> unit) -> unit
 
 (* Like n_iter, but the nodes are sorted. *)
 val n_iter_sorted: 'a graph -> (id -> unit) -> unit
-
+  
 (* Fold on all (unsorted) nodes. You must remember what List.fold_left does. *)
 val n_fold: 'a graph -> ('b -> id -> 'b) -> 'b -> 'b
 
