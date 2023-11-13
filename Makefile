@@ -1,7 +1,14 @@
+.PHONY: all build format edit demo clean
+
+src?=1
+dst?=2
+
+all: build
 
 build:
-	@echo "\n==== COMPILING ====\n"
-	ocamlbuild ftest.native
+	@echo "\n   ⚙  COMPILING  ⚙\n"
+	dune build src/ftest.exe
+	ls src/*.exe > /dev/null && ln -fs src/*.exe .
 
 format:
 	ocp-indent --inplace src/*
@@ -10,11 +17,12 @@ edit:
 	code . -n
 
 demo: build
-	@echo "\n==== EXECUTING ====\n"
-	./ftest.native graphs/graph1 1 2 outfile
-	@echo "\n==== RESULT ==== (content of outfile) \n"
+	@echo "\n   🏁  EXECUTING  🏁\n"
+	./ftest.exe graphs/graph1 $(src) $(dst) outfile
+	@echo "\n   🥁  RESULT (content of outfile)  🥁\n"
 	@cat outfile
 
 clean:
-	-rm -rf _build/
-	-rm ftest.native
+	find -L . -name "*~" -delete
+	rm -f *.exe
+	dune clean
