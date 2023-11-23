@@ -66,7 +66,7 @@ let ensure graph id = if node_exists graph id then graph else new_node graph id
 (* Reads a line with an arc. *)
 let read_arc graph line =
   try Scanf.sscanf line "e %d %d %_d %s@%%"
-        (fun src tgt lbl -> new_arc (ensure (ensure graph src) tgt) { src ; tgt ; lbl } )
+        (fun src tgt lbl -> let lbl = String.trim lbl in new_arc (ensure (ensure graph src) tgt) { src ; tgt ; lbl } )
   with e ->
     Printf.printf "Cannot read arc in line - %s:\n%s\n%!" (Printexc.to_string e) line ;
     failwith "from_file"
