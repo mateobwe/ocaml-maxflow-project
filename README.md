@@ -1,17 +1,18 @@
 Base project for Ocaml project on Ford-Fulkerson. This project contains some simple configuration files to facilitate editing Ocaml in VSCode.
 
-To use, you should install the *OCaml* extension in VSCode. Other extensions might work as well but make sure there is only one installed.
+To use, you should install the *OCaml Platform* extension in VSCode.
 Then open VSCode in the root directory of this repository (command line: `code path/to/ocaml-maxflow-project`).
 
 Features :
  - full compilation as VSCode build task (Ctrl+Shift+b)
  - highlights of compilation errors as you type
  - code completion
- - automatic indentation on file save
+ - view of variable types
 
 
-A makefile provides some useful commands:
- - `make build` to compile. This creates an ftest.native executable
+A [`Makefile`](Makefile) provides some useful commands:
+
+ - `make build` to compile. This creates an `ftest.exe` executable
  - `make demo` to run the `ftest` program with some arguments
  - `make format` to indent the entire project
  - `make edit` to open the project in VSCode

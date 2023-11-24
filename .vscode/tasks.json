@@ -4,11 +4,20 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "make",
+            "label": "make build",
             "type": "shell",
-            "command": "make",
+            "command": "make build",
             "group": {
                 "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "make demo",
+            "type": "shell",
+            "command": "make demo",
+            "group": {
+                "kind": "test",
                 "isDefault": true
             }
         }
