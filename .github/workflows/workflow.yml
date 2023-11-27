@@ -38,7 +38,7 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - run: opam install ocamlbuild
+      - run: opam install dune
       - name: Build project
         run: eval $(opam env) && make build
       - name: Run demo
