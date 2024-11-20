@@ -78,6 +78,24 @@ let read_comment graph line =
     Printf.printf "Unknown line:\n%s\n%!" line ;
     failwith "from_file"
 
+
+
+let export txt graph = 
+  let ff = open_out txt in
+  let _ = fprintf ff "digraph finite_state_machine {\n" in
+  let _ = fprintf ff "  fontname=\"Helvetica,Arial,sans-serif\"\n" in
+  let _ = fprintf ff "  node [fontname=\"Helvetica,Arial,sans-serif\"]\n" in
+  let _ = fprintf ff "  edge [fontname=\"Helvetica,Arial,sans-serif\"]\n" in
+  let _ = fprintf ff "  rankdir=LR;\n" in
+  let _ = fprintf ff "  node [shape = circle];\n" in
+  let _ = e_iter graph (fun arc -> fprintf ff "  %d -> %d [ label = \"%s\" ];\n" arc.src arc.tgt arc.lbl) in
+  let _ = fprintf ff "}\n" in
+  close_out ff ;
+  ()
+
+(* Read a graph from a file. *)
+  
+
 let from_file path =
 
   let infile = open_in path in

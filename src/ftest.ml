@@ -21,7 +21,7 @@ let () =
   let infile = Sys.argv.(1)
   and outfile = Sys.argv.(4)
   
-  (* These command-line arguments are not used for the moment. *)
+  (* These command"graph.dot"-line arguments are not used for the moment. *)
   and _source = int_of_string Sys.argv.(2)
   and _sink = int_of_string Sys.argv.(3)
   in
@@ -30,7 +30,7 @@ let () =
   let graph = from_file infile in
 
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile (clone_nodes graph) in
-
+  let () = write_file outfile (clone_nodes graph)  in 
+  export "graph.dot" graph  ;;
   ()
 
