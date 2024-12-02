@@ -130,3 +130,23 @@ let from_file path =
   close_in infile ;
   final_graph
   
+
+let write_file_path path path2 =
+
+  (* Open a write-file. *)
+  let ff = open_out path in
+
+  (* Write in this file. *)
+  fprintf ff "%% This is a path.\n\n" ;
+
+  (* Write all ids *)
+  (match path2 with
+  | None -> fprintf ff "No path found \n" ;
+  | Some ids -> List.iter (fun id -> fprintf ff "%d" (id)) ids;
+                fprintf ff "\n " );
+  
+  fprintf ff "\n%% End of path\n" ;
+  
+  close_out ff ;
+  ()
+

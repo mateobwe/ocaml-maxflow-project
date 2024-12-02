@@ -1,5 +1,6 @@
 open Gfile
-open Tools 
+(*open Tools *)
+open Algo
  
 let () =
 
@@ -28,9 +29,12 @@ let () =
 
   (* Open file *)
   let graph = from_file infile in
-
+    
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile (clone_nodes graph)  in 
-  export "graph.dot" graph  ;;
+  let chemin = (find_path graph 7 1) in
+  let () = write_file_path outfile (chemin) in
+  
+  export "graph.dot" graph;;
+ 
   ()
 
