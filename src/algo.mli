@@ -6,9 +6,7 @@ type flot = {
 }
 
 
-val find_path: 'a graph -> int -> int -> int list option
-val init_flot_graph: int graph -> flot graph 
-val update_arc: flot arc -> int list -> int -> flot arc
-val update_path: flot graph -> int list -> int -> flot graph 
-val create_graphe_ecart: flot graph -> int graph
-val find_max_possible: 'a graph -> id list -> 'a -> 'a 
+val update_path2: int graph -> int list -> int -> int graph 
+val create_graphe_ecart: int graph -> int graph
+val find_max_possible: int graph -> id list -> int -> int 
+val ford_fulkerson: int graph -> int -> int -> int graph
