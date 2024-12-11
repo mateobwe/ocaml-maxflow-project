@@ -38,7 +38,9 @@ let () =
   let graphe_actualise = ford_fulkerson graph 0 5 in
   let max = find_max_possible graphe_actualise vrai_chemin 100 in 
   let () = write_file_path outfile (Some (max::[])) in
-  let graph_a_exporter = gmap graphe_actualise (fun label ->  string_of_int label)  in 
-  export ";)).dot" graph_a_exporter;;
+  let graph_a_exporter = convert_graph graphe_actualise int_graph in
+  let graph_a_exporter2 = gmap graphe_actualise (fun label ->  string_of_int label)  in 
+  export "7.dot" graph_a_exporter ;
+  export  "ff7.dot" graph_a_exporter2;;
  
   ()

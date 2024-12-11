@@ -45,9 +45,18 @@ let find_arc_in_path gr id1 id2 =
   with
   | Not_found -> Printf.printf("Erreur pas cool");None;;
 
+let transfo_arc grff g arc=
+  let val1= find_arc grff arc.src arc.tgt in
+  match val1 with
+  |Some arc1 ->  if (arc1.lbl > arc.lbl ) then new_arc g {src = arc.src ; tgt= arc.tgt; lbl= ("0/" ^ string_of_int (arc.lbl))}
+  else new_arc g {src = arc.src ; tgt= arc.tgt; lbl= (string_of_int (arc.lbl-arc1.lbl) ^ "/" ^ string_of_int (arc.lbl))}
+  | _ -> assert false
 
 
-  
+let convert_graph (grff: int graph ) (grb: int graph) =
+  let new_gr = clone_nodes grb in 
+  e_fold grb (fun g arc -> (transfo_arc grff g arc)) new_gr ;;
+
 let rec update_path2 (gr:id graph) (chemin: id list) valeur = 
    match chemin with 
   |[] -> gr
@@ -73,7 +82,9 @@ let rec find_max_possible graph chemin aux =
   | Some(arc) ->  if (arc.lbl < aux) then find_max_possible graph (y::rest) (arc.lbl) 
   else find_max_possible graph (y::rest) aux 
 ;;
-  
+
+
+
   let rec ford_fulkerson (graph: id graph) dep fin =
     match find_path2 graph dep fin with 
     |None -> graph 
