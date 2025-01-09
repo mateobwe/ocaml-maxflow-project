@@ -32,15 +32,25 @@ let () =
     
   (* Rewrite the graph that has been read. *)
   (*let chemin = (find_path graph 1 7) in*)
+
+  (* 
   let int_graph = gmap graph (fun label -> int_of_string label) in 
   let graph = create_graphe_ecart int_graph in 
   let vrai_chemin = 0::1::2::3::5::7::[] in
-  let graphe_actualise = ford_fulkerson graph 0 5 in
-  let max = find_max_possible graphe_actualise vrai_chemin 100 in 
+  let graphe_actualise = ford_fulkerson graph _source _sink in
+  let max = find_max_possible graphe_actualise vrai_chemin max_int in 
   let () = write_file_path outfile (Some (max::[])) in
   let graph_a_exporter = convert_graph graphe_actualise int_graph in
-  let graph_a_exporter2 = gmap graphe_actualise (fun label ->  string_of_int label)  in 
-  export "7.dot" graph_a_exporter ;
+  let graph_a_exporter2 = gmap graphe_actualise (fun label ->  string_of_int label)  in  
+  *)
+
+  let int_graph = gmap graph int_of_string in
+  let graphe_final = ford_fulkerson int_graph _source _sink in
+  let max_flot = find_max_possible graphe_final [_source; _sink] max_int in
+
+  let graph_a_exporter2 = gmap graphe_final (fun label ->  string_of_int label) in
+
+  write_file_path outfile (Some [max_flot]);
   export  "ff7.dot" graph_a_exporter2;;
  
   ()
