@@ -45,12 +45,13 @@ let () =
   *)
 
   let int_graph = gmap graph int_of_string in
-  let graphe_final = ford_fulkerson int_graph _source _sink in
-  let max_flot = find_max_possible graphe_final [_source; _sink] max_int in
-
+  let graph_ecart = create_graphe_ecart int_graph in
+  let graphe_final = ford_fulkerson graph_ecart _source _sink in
+  let graph_a_exporter = convert_graph graphe_final int_graph in
   let graph_a_exporter2 = gmap graphe_final (fun label ->  string_of_int label) in
 
-  write_file_path outfile (Some [max_flot]);
-  export  "ff7.dot" graph_a_exporter2;;
+  let () = write_file outfile graph in
+  export  "ff1.dot" graph_a_exporter2;
+  export  "solution.dot" graph_a_exporter;
  
   ()

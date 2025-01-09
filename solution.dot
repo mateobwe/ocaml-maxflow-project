@@ -1,0 +1,35 @@
+digraph finite_state_machine {
+  fontname="Helvetica,Arial,sans-serif"
+  node [fontname="Helvetica,Arial,sans-serif"]
+  edge [fontname="Helvetica,Arial,sans-serif"]
+  rankdir=LR;
+  node [shape = circle];
+  1 -> 9 [ label = "0/524" ];
+  1 -> 7 [ label = "0/811" ];
+  1 -> 5 [ label = "0/879" ];
+  1 -> 6 [ label = "0/954" ];
+  9 -> 1 [ label = "524/524" ];
+  9 -> 3 [ label = "0/1053" ];
+  9 -> 4 [ label = "0/766" ];
+  3 -> 9 [ label = "1053/1053" ];
+  3 -> 6 [ label = "0/433" ];
+  4 -> 9 [ label = "766/766" ];
+  4 -> 5 [ label = "0/1106" ];
+  4 -> 2 [ label = "0/1364" ];
+  7 -> 6 [ label = "0/837" ];
+  7 -> 0 [ label = "0/1435" ];
+  7 -> 1 [ label = "811/811" ];
+  6 -> 7 [ label = "837/837" ];
+  6 -> 3 [ label = "433/433" ];
+  6 -> 1 [ label = "954/954" ];
+  0 -> 7 [ label = "1435/1435" ];
+  0 -> 8 [ label = "0/464" ];
+  0 -> 5 [ label = "0/343" ];
+  8 -> 0 [ label = "464/464" ];
+  5 -> 4 [ label = "1106/1106" ];
+  5 -> 2 [ label = "0/1054" ];
+  5 -> 1 [ label = "879/879" ];
+  5 -> 0 [ label = "343/343" ];
+  2 -> 4 [ label = "1364/1364" ];
+  2 -> 5 [ label = "1054/1054" ];
+}
