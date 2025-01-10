@@ -17,7 +17,7 @@ let rec trans_liste liste aux = match liste with
   | None::rest -> trans_liste rest aux
   | (Some(x))::rest -> trans_liste rest (x::aux);;
 
-
+(* 
   let find_path2 (grDC: id graph) (id1:id) (id2:id) =
     let rec aux current_path visited = function
     | [] -> None
@@ -25,16 +25,28 @@ let rec trans_liste liste aux = match liste with
     | id::rest ->
       if List.mem id visited then aux current_path visited rest
       else if id = id2 then Some (List.rev (id :: current_path))
-        else
-          let out = out_arcs grDC id in 
-          let next_nodes = List.map (fun arc -> (Printf.printf "label actuel : %d\n" arc.lbl); arc_valid arc) out in
-          Printf.printf "Next nodes %s\n: " (String.concat " -> " (List.map string_of_int  (trans_liste next_nodes [] ) )) ;
-          match aux (id :: current_path) (id :: visited) (List.filter (fun x -> not (List.mem x visited)) ( trans_liste next_nodes rest)) with
-            | None -> Printf.printf "on est où là\n " ; aux current_path visited rest
-            | some_path -> match some_path with
-              | Some x -> Printf.printf "Chemin: %s\n" (String.concat " -> " (List.map string_of_int  x )); some_path
-              | _ -> assert false in
-aux [] [id1] [id1] ;;
+      else
+        let out = out_arcs grDC id in 
+        let next_nodes = List.map (fun arc -> (Printf.printf "label actuel : %d\n" arc.lbl); arc_valid arc) out in
+        Printf.printf "Next nodes %s\n: " (String.concat " -> " (List.map string_of_int  (trans_liste next_nodes [] ) )) ;
+        match aux (id :: current_path) (id :: visited) (List.filter (fun x -> not (List.mem x visited)) ( trans_liste next_nodes rest)) with
+          | None -> Printf.printf "on est où là\n " ; aux current_path visited rest
+          | some_path -> match some_path with
+            | Some x -> Printf.printf "Chemin: %s\n" (String.concat " -> " (List.map string_of_int  x )); some_path
+            | _ -> assert false in
+aux [] [id1] [id1] ;; *)
+
+let rec find_path graph visited id1 id2 =
+  if id1 = id2 then Some [id1]
+  else if List.mem id1 visited then None
+  else
+    let rec aux = function
+      | [] -> None
+      | node::rest ->
+        match find_path graph (id1::visited) node id2 with
+        | None -> aux rest
+        | Some p -> Some (id1::p) in
+    aux (trans_liste (List.map arc_valid (out_arcs graph id1))[]);; 
 
 (* Le problème c'est qu'on marque mal les noeuds visités (par exemple pour aller de 0 à 7 dans le graphe 7 on va faire 0->8->0->7 mais on ne renote pas 0 dans l'itinéraire ce qui crée un bug. Il faut réussir à enlever le chemin 0->8 8->0 qui est inutile car il apporte rien de 0 à 5)*)
 let find_arc_in_path gr id1 id2 =
@@ -87,12 +99,12 @@ let rec find_max_possible graph chemin aux =
 
 
 let rec ford_fulkerson (graph: id graph) dep fin =
-  match find_path2 graph dep fin with
+  match find_path graph [] dep fin with
   |None -> graph
   |Some chemin ->
     let max =  find_max_possible graph chemin max_int
   in Printf.printf "Valeur max actuelle: %d%!\n" max ; match max with
-  | 0 -> assert false
+  | 0 -> graph
   | _ -> let new_graph = update_path2 graph chemin (-max) in
           let new_graph2 =  update_path2 new_graph (List.rev chemin) max in
   ford_fulkerson new_graph2 dep fin;;
