@@ -50,7 +50,7 @@ let () =
   let graph_a_exporter = convert_graph graphe_final int_graph in
   let graph_a_exporter2 = gmap graphe_final (fun label ->  string_of_int label) in
 
-  let () = write_file outfile graph in
+  let () = write_file outfile graph_a_exporter in
   export  "ff1.dot" graph_a_exporter2;
   export  "solution.dot" graph_a_exporter;
  
