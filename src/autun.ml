@@ -6,7 +6,6 @@ open Printf
 
 let () =
 
-  (* Check the number of command-line arguments *)
   if Array.length Sys.argv <> 3 then
     begin
       Printf.printf
@@ -16,9 +15,6 @@ let () =
          "    🟄  sink    : identifier of the sink vertex (ditto)\n" ) ;
       exit 0
     end ;
-
-
-  (* Arguments are : infile(1) source-id(2) sink-id(3) outfile(4) *)
   
   let infile = "graphs/autun.txt"
   and lieux = Hashtbl.create 12 in
@@ -36,9 +32,7 @@ let () =
   Hashtbl.add lieux 10 "Camping";
   Hashtbl.add lieux 11 "Marche" ;
 
-  (* These command"graph.dot"-line arguments are not used for the moment. *)
-
-  (* Fonction pour trouver la clé associée à une valeur *)
+(* Fonction pour trouver la clé associée à une valeur *)
 let find_key_by_value table value =
   try
     Hashtbl.fold (fun key v acc ->
@@ -47,7 +41,6 @@ let find_key_by_value table value =
     ) table None 
   with Not_found -> Printf.printf "Valeur non trouvée" ; assert false in
 
-(* Exemple d'utilisation pour "Marché" *)
 let _source = match find_key_by_value lieux Sys.argv.(1) with 
   | Some key -> key
   | None -> Printf.printf "Source non trouvée" ; assert false in
@@ -59,7 +52,6 @@ let _sink = match find_key_by_value lieux Sys.argv.(2) with
   in
 
   Printf.printf "Puits: %d\n" _sink ;
-  Printf.printf "Le fichier a été écrit avec succès\n" ;
   let graph = from_file infile in
   let int_graph = gmap graph int_of_string in
   let graph_ecart = create_graphe_ecart int_graph in
@@ -72,9 +64,8 @@ let _sink = match find_key_by_value lieux Sys.argv.(2) with
     ) 0 labels in
   let ff = open_out "resultat_autun" in
   let texte = (( string_of_int flot_trouve) ^ " personnes peuvent être transportées de \"" ^ Sys.argv.(1) ^ "\" (" ^ (string_of_int _source) ^ ") à \"" ^ Sys.argv.(2) ^"\" (" ^ (string_of_int _sink) ^ ").\n") in
-  fprintf ff "%s" texte ; 
+  fprintf ff "\n%s" texte ; 
   close_out ff ;
-  Printf.printf "Le fichier a été écrit avec succès 2\n" ;
   export  "SOLUTION.dot" graph_a_exporter;
  
   ()
