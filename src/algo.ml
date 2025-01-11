@@ -45,7 +45,7 @@ let rec find_path graph visited id1 id2 =
       | node::rest ->
         match find_path graph (id1::visited) node id2 with
         | None -> aux rest
-        | Some p -> Some (id1::p) in
+        | Some p -> Printf.printf "Chemin: %s\n" (String.concat " -> " (List.map string_of_int p)); Some (id1::p) in
     aux (trans_liste (List.map arc_valid (out_arcs graph id1))[]);; 
 
 (* Le problème c'est qu'on marque mal les noeuds visités (par exemple pour aller de 0 à 7 dans le graphe 7 on va faire 0->8->0->7 mais on ne renote pas 0 dans l'itinéraire ce qui crée un bug. Il faut réussir à enlever le chemin 0->8 8->0 qui est inutile car il apporte rien de 0 à 5)*)
@@ -79,11 +79,20 @@ let rec update_path2 (gr:id graph) (chemin: id list) valeur =
   | None -> assert false
   | Some(arc) -> Printf.printf "Entrain d'augmenter l'arc de %d à %d, de %d \n" arc.src arc.tgt valeur ; update_path2 (add_arc gr arc.src arc.tgt valeur) (y::rest) valeur;; *)
 
-let create_graphe_ecart (gr:id graph) =
+(* let create_graphe_ecart (gr:int graph) =
   let new_gr = clone_nodes gr in
-  e_fold gr (fun g arc -> (new_arc (new_arc g {src = arc.tgt ; tgt= arc.src; lbl=arc.lbl (* C'est 0 ici normalement*)}) {src = arc.src; tgt= arc.tgt; lbl= arc.lbl})) new_gr ;; 
+  e_fold gr (fun g arc -> (new_arc (new_arc g {src = arc.tgt ; tgt= arc.src; lbl=arc.lbl (* C'est 0 ici normalement*)}) {src = arc.src; tgt= arc.tgt; lbl= arc.lbl})) new_gr ;;  *)
 
+  let create_graphe_ecart (gr:int graph) =
+    let new_gr = clone_nodes gr in
+    e_fold gr (fun g arc ->
+      let g = new_arc g {src = arc.src; tgt = arc.tgt; lbl = arc.lbl} in
+      if find_arc_in_path gr arc.tgt arc.src = None then
+        new_arc g {src = arc.tgt; tgt = arc.src; lbl = 0}
+      else g
+    ) new_gr;;
 
+    
 (*let find_arc_in_path gr id1 id2 = List.find (fun arc -> arc.tgt = id2) (out_arcs gr id1)*)
 
 let rec find_max_possible graph chemin aux =
@@ -98,7 +107,7 @@ let rec find_max_possible graph chemin aux =
 
 
 
-let rec ford_fulkerson (graph: id graph) dep fin =
+let rec ford_fulkerson (graph: int graph) dep fin =
   match find_path graph [] dep fin with
   |None -> graph
   |Some chemin ->
