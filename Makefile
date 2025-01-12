@@ -36,7 +36,6 @@ autun: build-autun
 	@echo "Entrez la source et la destination :"
 	@read -p "Source: " Source; \
 	read -p "Destination: " Destination; \
-	echo "Bonjour, $${Source}" && \
 	./autun.exe $$Source $$Destination; \
 	cat resultat_autun && \
 	dot -Tsvg "SOLUTION.dot" > SOLUTION.svg && \
