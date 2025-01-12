@@ -1,6 +1,6 @@
 # Ocaml Maxflow Project
 
-Base project for Ocaml project on Ford-Fulkerson. This project contains some simple configuration files to facilitate editing Ocaml in VSCode.
+This project is an implementation of the Ford-Fulkerson algorithm in OCaml using various modules. The project allows users to create max flow graphs, interactively input source and destination nodes, and visualize the results with an SVG graph. Specific scenarios, such as the city of Autun, are also supported.
 
 ## Features ✨
 
@@ -8,7 +8,7 @@ Base project for Ocaml project on Ford-Fulkerson. This project contains some sim
 - Creation of ford-fulkerson max flow graphs 
 
     ### For Autun's scenario 
-- Interactive feature which allow user to input source and destination
+- Interactive features which allow user to input source and destination
 - Display of the max flow found after the execution of the algorithm
 - Display of an svg graph containing the result of the Ford-Fulkerson
 
