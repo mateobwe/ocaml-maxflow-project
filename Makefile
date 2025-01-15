@@ -1,8 +1,8 @@
 .PHONY: all build format edit demo clean
 
 src?=0
-dst?=12
-graph?=graph2.txt
+dst?=5
+graph?=graph1.txt
 
 all: build
 
@@ -39,7 +39,9 @@ autun: build-autun
 	./autun.exe $$Source $$Destination; \
 	cat resultat_autun && \
 	dot -Tsvg "SOLUTION.dot" > SOLUTION.svg && \
-	xdg-open SOLUTION.svg
+	dot -Tsvg "SOLUTION_SANS_ZERO.dot" > SOLUTION_SANS_ZERO.svg && \
+	xdg-open SOLUTION.svg && \
+	xdg-open SOLUTION_SANS_ZERO.svg
 
 
 clean:
